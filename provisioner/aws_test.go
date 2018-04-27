@@ -233,7 +233,7 @@ func TestDescribeCorrectASG(t *testing.T) {
 	a := newAWSAdapterWithStubs("", "GroupName")
 	group, err := a.describeASG("GroupName")
 	if err != nil {
-		t.Fatalf(err.Error())
+		t.Fatal(err.Error())
 	}
 	if *group.AutoScalingGroupName != "GroupName" {
 		t.Fatalf("expected %s, got %s", "GroupName", *group.AutoScalingGroupName)
@@ -278,7 +278,7 @@ func TestCreateOrUpdateClusterStack(t *testing.T) {
 	assert.Error(t, err)
 
 	templateValue := make([]string, stackMaxSize+1)
-	for i, _ := range templateValue {
+	for i := range templateValue {
 		templateValue[i] = "x"
 	}
 	hugeTemplate := []byte(fmt.Sprintf("{\"stack\": \"%s\"}", strings.Join(templateValue, "")))
